@@ -1,0 +1,51 @@
+{% extends "rest_framework/base.html" %}
+{% load rest_framework %}
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block body %}
+
+    <nav class="navbar"> <!--style="background-color: #e3f2fd;-->
+      <a class="btn text-white" style="color:white;" href="{% url 'rest_framework:login' %}" role="button">Sign in</a>
+      <a class="btn text-white" style="color:white;" href="{% url 'rest_api_practice_app:sign_up' %}" role="button">Sign up</a>
+<!--      <a class="btn text-white" style="color:white;" href="{% url 'rest_api_practice_app:article_list' %}" role="button">Home</a>-->
+
+    </nav>
+    <body class="container mt-5">
+      <div class="container-fluid" style="margin-top: 100px">
+        <div class="row-fluid">
+          <div class="well" style="width: 320px; margin-left: auto; margin-right: auto">
+            <div class="row-fluid">
+              <div>
+                {% block branding %}<h3 style="margin: 0 0 20px;">Django REST framework</h3>{% endblock %}
+                <h4 class="mx-auto text-center">Sign Up</h4>
+              </div>
+            </div><!-- /row fluid -->
+
+            <div class="row-fluid">
+              <div>
+                <form action="" role="form" method="POST">
+                  {% csrf_token %}
+                  <div class="d-flex flex-column">
+                    {% for field in form %}
+                    <div style="margin-bottom: 20px;">
+                       {{ field.label_tag }} {{ field }}
+                      {{ field.errors }}
+                    </div>
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                      {% for error in form.non_field_errors %}
+                        <div class="well well-small text-error" style="border: none">{{ error }}</div>
+                      {% endfor %}
+                    {% endif %}
+                   <input class="btn btn-primary mt-2" type="submit" value="Save" />
+                  </div>
+                </form>
+              </div>
+            </div><!-- /.row-fluid -->
+          </div><!--/.well-->
+        </div><!-- /.row-fluid -->
+      </div><!-- /.container-fluid -->
+    </body>
+{% endblock %}
